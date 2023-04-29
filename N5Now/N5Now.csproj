@@ -17,11 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\N5Now.Domain\N5Now.Domain.csproj" />
+    <Folder Include="Logs\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Logs\" />
+    <ProjectReference Include="..\N5Now.Domain\N5Now.Domain.csproj" />
   </ItemGroup>
 
 </Project>
