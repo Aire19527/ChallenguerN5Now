@@ -1,32 +1,20 @@
 ﻿using AutoMapper;
 using Infraestructure.Core.UnitOfWork.Interface;
-using Infraestructure.Core.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using N5Now.Domain.Mappins;
-using N5Now.Domain.Services.Permissions.Interfaces;
-using N5Now.Domain.Services.Permissions;
-using N5Now.Domain.Services.ElasticSearchs.Interfaces;
-using Moq;
-using N5Now.Domain.Services.Kafka.Interface;
-using N5Now.Domain.Services.ElasticSearchs;
-using N5Now.Domain.Services.Kafka;
-using N5Now.Domain.DTO.Permissions;
-using Xunit;
-using System.Reflection;
 using Infraestructure.Entity.Models;
-using Nest;
-using N5Now.Common.Exceptions;
+using Moq;
+using N5Now.Domain.DTO.Permissions;
+using N5Now.Domain.Mappins;
+using N5Now.Domain.Services.ElasticSearchs.Interfaces;
+using N5Now.Domain.Services.Kafka.Interface;
+using N5Now.Domain.Services.Permissions;
+using N5Now.Domain.Services.Permissions.Interfaces;
+using Xunit;
 
 namespace No5Now.Test.Services
 {
     public class PermissionServicesTest
     {
         #region Attributes
-        //private readonly IUnitOfWork _unitOfWorkMock;
         private readonly IMapper _mapper;
         private readonly Mock<IElasticsearchService> _elasticsearchService;
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
@@ -83,13 +71,13 @@ namespace No5Now.Test.Services
                                 }.ToList());
 
             // Act
-            var result =await _permissionServices.GetPermissions();
+            var result = await _permissionServices.GetPermissions();
 
             // Assert
             var model = Assert.IsAssignableFrom<IEnumerable<PermissionDto>>(result);
             Assert.True(model.Any());
             Assert.Equal(2, model.Count());
-            
+
         }
 
 
@@ -98,7 +86,7 @@ namespace No5Now.Test.Services
         {
             // Arrange
             _elasticsearchService.Setup(x => x.GetDocument(It.IsAny<int>()))
-                                .ReturnsAsync(new  PermissionDto()
+                                .ReturnsAsync(new PermissionDto()
                                 {
                                     Id = 2,
                                     EmployeeForename = "Juan",
@@ -114,8 +102,8 @@ namespace No5Now.Test.Services
                 Id = 2,
                 EmployeeForename = "Juan",
                 EmployeeSurname = "Rodriguez",
-                PermissionType = 1,                
-            }; 
+                PermissionType = 1,
+            };
 
             // Act
             var result = await _permissionServices.ModifyPermission(permission);
@@ -129,10 +117,10 @@ namespace No5Now.Test.Services
         {
             // Arrange
             _elasticsearchService.Setup(x => x.GetDocument(It.IsAny<int>()));
-            
+
 
             // act & assert
-            Assert.Throws<AggregateException>(() =>  _permissionServices.ModifyPermission(It.IsAny<UpdatePermissionDto>()).Result);            
+            Assert.Throws<AggregateException>(() => _permissionServices.ModifyPermission(It.IsAny<UpdatePermissionDto>()).Result);
         }
 
 

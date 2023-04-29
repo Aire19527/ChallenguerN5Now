@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Infraestructure.Entity.Models;
 using N5Now.Domain.DTO.Permissions;
+using N5Now.Domain.DTO.PermissionTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace N5Now.Domain.Mappins
         {
             CreateMap<PermissionsEntity, PermissionDto>();
             CreateMap<PermissionDto, PermissionsEntity>();
+
+            CreateMap<PermissionTypeDto, PermissionTypesEntity>();
+            CreateMap<PermissionTypesEntity, PermissionTypeDto>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Infraestructure.Core.UnitOfWork.Interface;
+﻿using AutoMapper;
+using Infraestructure.Core.UnitOfWork.Interface;
 using Infraestructure.Entity.Models;
 using N5Now.Common.Exceptions;
 using N5Now.Common.Resources;
@@ -11,12 +12,14 @@ namespace N5Now.Domain.Services.Permissions
     {
         #region Attributes
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         #endregion
 
         #region Builder
-        public PermissionTypeServices(IUnitOfWork unitOfWork)
+        public PermissionTypeServices(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         #endregion
 
@@ -24,13 +27,8 @@ namespace N5Now.Domain.Services.Permissions
         public List<PermissionTypeDto> GetAll()
         {
             IEnumerable<PermissionTypesEntity> permissionTypes = _unitOfWork.PermissionTypesRepository.GetAll();
-            List<PermissionTypeDto> listTypes = permissionTypes.Select(x => new PermissionTypeDto()
-            {
-                Id = x.Id,
-                Description = x.Description,
-            }).ToList();
-
-            return listTypes;
+            
+            return _mapper.Map<List<PermissionTypeDto>>(permissionTypes);
         }
         private PermissionTypesEntity Get(int id)
         {
