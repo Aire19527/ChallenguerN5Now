@@ -1,5 +1,7 @@
 ﻿using Infraestructure.Core.UnitOfWork.Interface;
 using Infraestructure.Entity.Models;
+using N5Now.Common.Exceptions;
+using N5Now.Common.Resources;
 using N5Now.Domain.DTO.PermissionTypes;
 using N5Now.Domain.Services.Permissions.Interfaces;
 
@@ -37,11 +39,11 @@ namespace N5Now.Domain.Services.Permissions
             return permissionType;
         }
 
-        public async Task<bool> Insert(AddPermissionTypeDto permission)
+        public async Task<bool> Insert(AddPermissionTypeDto permissionType)
         {
             PermissionTypesEntity entity = new PermissionTypesEntity()
             {
-                Description = permission.Description
+                Description = permissionType.Description
             };
             _unitOfWork.PermissionTypesRepository.Insert(entity);
 
@@ -52,9 +54,7 @@ namespace N5Now.Domain.Services.Permissions
         {
             PermissionTypesEntity entity = Get(data.Id);
             if (entity == null)
-            {
-                throw new Exception("jpa");
-            }
+                throw new BusinessException(GeneralMessages.ItemNoFound);
 
             entity.Description = data.Description;
             _unitOfWork.PermissionTypesRepository.Update(entity);
@@ -66,9 +66,7 @@ namespace N5Now.Domain.Services.Permissions
         {
             PermissionTypesEntity entity = Get(id);
             if (entity == null)
-            {
-                throw new Exception("jpa");
-            }
+                throw new BusinessException(GeneralMessages.ItemNoFound);
 
             _unitOfWork.PermissionTypesRepository.Delete(entity);
 

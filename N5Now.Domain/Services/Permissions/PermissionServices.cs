@@ -36,9 +36,6 @@ namespace N5Now.Domain.Services.Permissions
         #region Methods
         public async Task<List<PermissionDto>> GetPermissions()
         {
-            //IEnumerable<PermissionsEntity> permissions = _unitOfWork.PermissionsRepository.GetAll();
-            //var result=_mapper.Map<List<PermissionDto>>(permissions);
-
             List<PermissionDto> list = await _elasticsearch.GetDocuments();
             await _kafkaServices.SendServices(new ServiceKafkaDto()
             {

@@ -11,6 +11,9 @@ namespace Infraestructure.Core.Context
 
         public DbSet<PermissionsEntity> PermissionsEntity { get; set; }
         public DbSet<PermissionTypesEntity> PermissionTypesEntity { get; set; }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
     }
 }

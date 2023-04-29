@@ -17,6 +17,7 @@ builder.Host.UseSerilog((hostContext, services, configuration) => {
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStringSQLServer"));
+    options.EnableSensitiveDataLogging();
 });
 #endregion
 
@@ -56,3 +57,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
