@@ -28,6 +28,8 @@
           -e "discovery.type=single-node" `
           docker.elastic.co/elasticsearch/elasticsearch:7.17.9
 - 🌐 &nbsp; Kafka
-    - curl --silent --output docker-compose.yml https://raw.githubusercontent.com/confluentinc/cp-all-in-one/6.1.1-post/cp-all-in-one/docker-compose.yml
+    - 💻 curl --silent --output docker-compose.yml https://raw.githubusercontent.com/confluentinc/cp-all-in-one/6.1.1-post/cp-all-in-one/docker-compose.yml
+    - 💻 configurar el topic en la siguiente url: http://localhost:9021/clusters
 
-Gracias :) !
+
+<h3> Gracias :) !🤝🏻 </h3>
